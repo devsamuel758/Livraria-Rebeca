@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AluraBooks</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Reset de estilo */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    /* Cabeçalho */
+    header {
+      background-color: #fff;
+      border-bottom: 1px solid #ddd;
+      padding: 20px 0;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px;
+    }
+
+    .cabecalho__menu-hamburguer {
+      display: none;
+      width: 30px;
+      height: 3px;
+      background-color: #333;
+      margin: 6px 0;
+    }
+
+    .lista-menu {
+      display: flex;
+      list-style: none;
+      align-items: center;
+    }
+
+    .lista-menu__item {
+      margin-right: 20px;
+      position: relative;
+    }
+
+    .lista-menu__link {
+      text-decoration: none;
+      color: #333;
+    }
+
+    .sub-menu {
+      display: none;
+      list-style: none;
+      position: absolute;
+      background-color: #fff;
+      padding: 10px;
+      border: 1px solid #ddd;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      top: 100%;
+      left: 0;
+      width: 180px;
+    }
+
+    .sub-menu__item {
+      margin: 10px 0;
+    }
+
+    .sub-menu__link {
+      text-decoration: none;
+      color: #333;
+    }
+
+    .container__imagem {
+      width: 80px;
+    }
+
+    .container__titulo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .opções {
+      display: flex;
+    }
+
+    .opções__item {
+      margin-left: 20px;
+      list-style: none;
+    }
+
+    .opções__link {
+      text-decoration: none;
+      color: #333;
+    }
+
+    /* Banner */
+    .banner {
+      background-color: #f7f7f7;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .banner__titulo {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .banner__texto {
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .banner__pesquisa {
+      padding: 10px;
+      width: 80%;
+      max-width: 500px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-top: 20px;
+    }
+
+    .banner__pesquisa-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .banner__pesquisa-container img {
+      margin-left: -35px;
+      position: absolute;
+      right: 15px;
+      width: 24px;
+      height: 24px;
+    }
+
+    /* Carrossel */
+    .carrossel {
+      padding: 450px 0;
+      background-color: #fff;
+      text-align: center;
+    }
+
+    .carrossel__titulo {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .swiper {
+      display: flex;
+      overflow: hidden;
+      justify-content: center;
+    }
+
+    .swiper-wrapper {
+      display: flex;
+    }
+
+    .swiper-slide {
+      width: 200px;
+      margin: 0 10px;
+    }
+
+    .swiper-slide img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: #333;
+    }
+
+    /* Card */
+    .card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #fff;
+      padding: 20px;
+      margin-top: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .descrição__titulo-livro {
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .descrição__texto {
+      color: #777;
+    }
+
+    .botões__item {
+      margin-right: 10px;
+    }
+
+    .botões__ancora {
+      text-decoration: none;
+      color: #5c5d5f;
+      font-weight: bold;
+    }
+
+    /* Seção Harry Potter */
+    .harry-potter-destaques {
+      background-color: #fff;
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    .harry-potter-destaques__titulo {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .harry-potter-destaques__item {
+      display: inline-block;
+      margin: 0 15px;
+      width: 200px;
+    }
+
+    .harry-potter-destaques__item img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+  
+    .harry-potter-destaques__link {
+      text-decoration: none;
+      color: #5c5d5f;
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+
+    .Brasão--destaques {
+  text-align: center;
+    }
+
+    .Brasão--destaques img {
+  width: 180px; /* tamanho pequeno da logo */
+  display: block;
+  margin: 0 auto;
+   }
+
+   .brasão--hogwarts {
+  width: 40px;
+  display: block;
+  margin: 0 auto;
+  margin-top: -20px; /* Ajuste o valor conforme necessário para subir mais */
+  border-radius: 12px;
+}
+
+
+
+
+    /* Tópicos */
+    .tópicos {
+      padding: 40px 0;
+      background-color: #f7f7f7;
+      text-align: center;
+    }
+
+    .tópicos__titulo {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .tópicos__lista {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .tópicos__item {
+      margin: 10px 15px;
+    }
+
+    .tópicos__link {
+      text-decoration: none;
+      color: #272727;
+      font-weight: bold;
+    }
+
+    /* Rodapé */
+    footer {
+      background-color: #505051;
+      color: #fff;
+      padding: 20px 0;
+    }
+
+    .rodapé__titulo {
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .lista-rodapé {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+    }
+
+    .lista-rodapé__item {
+      margin: 0 15px;
+    }
+
+    .lista-rodapé__link {
+      text-decoration: none;
+      color: #ececec;
+    }
+
+    /* Media Queries */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .lista-menu {
+        flex-direction: column;
+        margin-top: 20px;
+      }
+
+      .opções {
+        margin-top: 20px;
+      }
+
+      .banner__pesquisa {
+        width: 100%;
+        max-width: none;
+      }
+
+      .carrossel__titulo,
+      .tópicos__titulo {
+        font-size: 22px;
+      }
+
+      .swiper-slide {
+        width: 150px;
+      }
+
+      footer {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <div class="container__imagem">
+        <span style="font-size: 40px;">📜</span> <!-- Emoji de pergaminho -->
+      </div>
+      <ul class="lista-menu">
+        <li class="lista-menu__item">
+          <a href="javascript:void(0)" class="lista-menu__link" onclick="toggleSubMenu()">Livros Aleatórios</a>
+          <ul class="sub-menu" id="programacaoSubMenu">
+            <li class="sub-menu__item"><a href="#" class="sub-menu__link">O Grande Gatsby</a></li>
+            <li class="sub-menu__item"><a href="#" class="sub-menu__link">Moby Dick</a></li>
+            <li class="sub-menu__item"><a href="#" class="sub-menu__link">1984</a></li>
+          </ul>
+        </li>
+        <li class="lista-menu__item"><a href="#" class="lista-menu__link">Ficção Científica</a></li>
+        <li class="lista-menu__item"><a href="#" class="lista-menu__link">Mistério</a></li>
+        <li class="lista-menu__item"><a href="#" class="lista-menu__link">Ficção Histórica</a></li>
+        <li class="lista-menu__item"><a href="#" class="lista-menu__link">Romance</a></li>
+        <li class="lista-menu__item">
+          <a href="javascript:void(0)" class="lista-menu__link" onclick="toggleSubMenuHarryPotter()">Harry Potter</a>
+          <ul class="sub-menu" id="harryPotterSubMenu">
+            <li class="sub-menu__item"><a href="#" class="sub-menu__link">Harry Potter e a Pedra Filosofal</li>
+            <li class="sub-menu__item"><a href="#" class="sub-menu__link">Harry Potter e a Câmara Secreta</a></li>
+            <li class="sub-menu__item"><a href="#" class="sub-menu__link">Harry Potter e o Prisioneiro de Azkaban</a></li>
+            <li class="sub-menu__item"><a href="#" class="sub-menu__link">Harry Potter e o Cálice de Fogo</a></li>
+            <li class="sub-menu__item"><a href="#" class="sub-menu__link">Harry Potter e a Ordem da Fênix</a></li>
+            <li class="sub-menu__item"><a href="#" class="sub-menu__link">Harry Potter e o Enigma do Príncipe</a></li>
+            <li class="sub-menu__item"><a href="#" class="sub-menu__link">Harry Potter e as Relíquias da Morte</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="opções">
+        <li class="opções__item">
+          <a href="#" class="opções__link">
+            <img src="img/Favoritos.svg" alt="Favoritos" />
+          </a>
+        </li>
+        <li class="opções__item">
+          <a href="#" class="opções__link">
+            <img src="img/Compras.svg" alt="Compras" />
+          </a>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <section class="banner">
+    <h2 class="banner__titulo">Encontre seu próximo livro!</h2>
+    <p class="banner__texto">Livros de várias temáticas para todos os gostos!</p>
+    <div class="banner__pesquisa-container">
+      <input type="search" class="banner__pesquisa" placeholder="Qual será sua próxima leitura?" />
+    </div>
+  </section>
+
+  <section class="harry-potter-destaques">
+    <h2 class="harry-potter-destaques__titulo">Destaques de Harry Potter</h2>
+    <div class="harry-potter-destaques__item">
+      <img src="img/image.png" alt="Harry Potter e a Pedra Filosofal" />
+      <a href="#" class="harry-potter-destaques__link">Harry Potter e a Pedra Filosofal</a>
+    </div>
+    <div class="harry-potter-destaques__item">
+      <img src="img/image copy.png" alt="Harry Potter e a Câmara Secreta" />
+      <a href="#" class="harry-potter-destaques__link">Harry Potter e a Câmara Secreta</a>
+    </div>
+    <div class="harry-potter-destaques__item">
+      <img src="img/image copy 2.png" alt="Harry Potter e o Prisioneiro de Azkaban" />
+      <a href="#" class="harry-potter-destaques__link">Harry Potter e o Prisioneiro de Azkaban</a>
+    </div>
+  </section>
+
+  <section class="harry-potter-destaques">
+    <h2 class="harry-potter-destaques__titulo">Mais de Harry Potter</h2>
+    <div class="harry-potter-destaques__item">
+      <img src="img/image copy 3.png" alt="Harry Potter e o Cálice de Fogo" />
+      <a href="#" class="harry-potter-destaques__link">Harry Potter e o Cálice de Fogo</a>
+    </div>
+    <div class="harry-potter-destaques__item">
+      <img src="img/image copy 4.png" alt="Quidditch Através dos Tempos" />
+      <a href="#" class="harry-potter-destaques__link">Harry Potter e a Ordem da Fênix</a>
+    </div>
+    <div class="harry-potter-destaques__item">
+      <img src="img/image copy 5.png" alt="Harry Potter e o Enigma do Príncipe" />
+      <a href="#" class="harry-potter-destaques__link">Harry Potter e o Enigma do Principe</a>
+    </div>
+    <div class="harry-potter-destaques__item">
+      <img src="img/image copy 6.png" alt="Harry Potter e a Criança Amaldiçoada" />
+      <a href="#" class="harry-potter-destaques__link">Harry Potter e a Criança Amaldiçoada</a>
+    </div>
+</section>
+<section>
+    <div class="Brasão--destaques">
+    <img src="img/image copy 7.png" alt="Logo da Grifinória">
+    <h1>Tudo sobre Grifinória</h1>
+    <p class="harry-potter-destaques__titulo">🧙‍♂️ Olá! Eu sou o Harry Potter e hoje vou contar como é ser da Grifinória! 🦁✨
+
+      Desde o meu primeiro dia em Hogwarts, o Chapéu Seletor já percebeu: eu tinha coragem, determinação e um espírito de aventura! 💪⚡ Ele gritou “Grifinória!” e minha vida nunca mais foi a mesma.
+      
+      Ser da Grifinória é muito mais do que só usar vermelho e dourado 🟥🟨 — é enfrentar o medo mesmo com o coração acelerado ❤️💥. É proteger os amigos, lutar pelo que é certo e nunca abaixar a cabeça diante da injustiça. 🛡️🔥
+      
+      Na nossa sala comunal, que fica na torre mais alta do castelo, a vista é incrível! 🏰🌟 Estamos sempre juntos, unidos como uma verdadeira família. Eu, Rony, Hermione, Neville... todos nós já passamos por grandes desafios — e foi nossa amizade e coragem que nos mantiveram de pé. 🤝🧡
+      
+      Se você é leal, valente e não tem medo de lutar pelo bem, a Grifinória pode ser o seu lugar! 🦁✨
+      
+      Até a próxima, bruxos e bruxas! Que a coragem esteja com vocês!</p>
+    </div>
+</section>
+<section>
+  <div class="Brasão--destaques">
+    <Img src="img/image copy 8.png" alt="Logo da sonserina">
+      <h1>Tudo sobre a Sonserina</h1>
+      <p class="harry-potter-destaques__titulo">🐍 Olá. Draco Malfoy falando. E antes que você pergunte... sim, eu sou da Sonserina. Claro que sou. Onde mais colocariam alguém com inteligência, ambição e um sobrenome respeitável? 😌💚
+
+        Na Sonserina, nós não somos como os outros. Não ficamos pulando por aí, gritando bravura como os Grifinórios 🦁 (por favor...). Aqui a gente pensa, planeja, age com estratégia. 🧠🐍
+        
+        Desde que entrei em Hogwarts, ficou bem claro quem eram os melhores. E adivinha? Eu sempre estive entre eles. 💅 Afinal, ser um Malfoy já coloca você dois degraus acima do resto.
+        
+        Ser da Sonserina é saber o seu valor e não aceitar menos do que o melhor. Nós somos ambiciosos, sim — e daí? Alguém precisa estar no topo. E garanto que não vai ser nenhum Weasley. 😏🔥
+        
+        Nosso salão comunal fica nas masmorras, perto do lago negro. Um lugar perfeito para mentes afiadas e frias como a minha. 💚🌊
+        
+        Então, se você tem ambição, estilo e não suporta gente que fala demais... bem-vindo à Sonserina. Onde os verdadeiros vencedores nascem. 🐍💼✨
+        
+        Agora, se me dá licença, tenho coisas mais importantes pra fazer do que ficar explicando o óbvio. Tchauzinho. 😌🖐️</p>
+  </div>
+</section>
+<section>
+  <div class="Brasão--destaques">
+    <img src="img/image copy 9.png" alt="Logo da Lufa-Lufa">
+    <h1>Tudo sobre Lufa lufa</h1>
+    <p class="harry-potter-destaques__titulo">🌟 Oi! Eu sou Cedrico Diggory e hoje quero te contar como é ser da Lufa-Lufa! 🦡💛
+
+      Muita gente subestima a nossa casa... mas deixa eu te dizer uma coisa: nós somos os mais leais, trabalhadores e justos de todo o castelo. E não é porque falamos baixo que não fazemos barulho quando é preciso! 💪✨
+      
+      Na Lufa-Lufa, todo mundo se ajuda. Aqui não tem essa de competir pra derrubar o outro — a gente cresce junto. Seja nos estudos 📚, nas tarefas, ou até no Quadribol 🧹 (é, eu sou capitão do time, diga-se de passagem 😎).
+      
+      Nosso salão comunal é o mais aconchegante de todos — fica pertinho das cozinhas (o que é ótimo 😋) e cheio de plantas, luz natural e gente de coração enorme. 🌿🌞
+      
+      Ser da Lufa-Lufa é ter coragem sem arrogância, ser bom sem esperar aplausos e lutar com humildade. Pode não ser a casa mais falada... mas é a mais verdadeira. 🖤💛🦡
+      
+      Então, se você acredita em justiça, amizade e trabalho honesto, a Lufa-Lufa pode ser o seu lugar. E olha... eu teria muito orgulho de te receber por aqui. 😉</p>
+  </div>
+</section>
+<section>
+  <div class="Brasão--destaques">
+    <img src="img/image copy 10.png" alt="Logo Corvinal">
+    <h1>Tudo sobre Corvinal</h1>
+    <p class="harry-potter-destaques__titulo">🌙 Oi... eu sou a Luna Lovegood, e hoje vou te contar como é ser da Corvinal 🦅💙
+
+      Muita gente acha que a gente só vive com o nariz enfiado nos livros 📚... mas ser da Corvinal é muito mais do que só estudar. Aqui a gente valoriza a criatividade, a inteligência e o olhar diferente sobre o mundo ✨🌍
+      
+      A Corvinal é para quem gosta de fazer perguntas que ninguém pensou em fazer, de ver beleza nas coisas estranhas e de não ter medo de ser... bem, um pouquinho diferente 😌🔮
+      
+      Nosso salão comunal fica no alto de uma torre, com uma vista linda do céu estrelado ✨🌌. Pra entrar, você precisa responder uma charada. Sim, até a porta da nossa sala te faz pensar 🧠😄
+      
+      Aqui, a mente é o nosso maior poder. E sabe o que é legal? Cada Corvino pensa de um jeito único. Não seguimos o que todo mundo faz — seguimos o que faz sentido pra nós 💙🦉
+      
+      Se você é curioso, ama aprender e vive com a cabeça nas nuvens (ou nas estrelas), a Corvinal pode ser o seu lar. E olha... eu adoraria ter você por aqui. 🌠💙</p>
+  </div>
+</section>
+
+  <footer>
+    <div class="rodapé__titulo">Jovens Leitores</div>
+    <img class="brasão--hogwarts" src="img/image copy 11.png" alt="Logo de Hogwarts">
+    <ul class="lista-rodapé">
+      <li class="lista-rodapé__item"><a href="#" class="lista-rodapé__link">Sobre</a></li>
+      <li class="lista-rodapé__item"><a href="#" class="lista-rodapé__link">Ajuda</a></li>
+      <li class="lista-rodapé__item"><a href="#" class="lista-rodapé__link">Termos</a></li>
+      <li class="lista-rodapé__item"><a href="#" class="lista-rodapé__link">Livros</a></li>
+      <li class="lista-rodapé__item"><a href="#" class="lista-rodapé__link">Feito por Rebeca Alves</a></li>
+    </ul>
+  </footer>
+
+  <script>
+    function toggleSubMenu() {
+      const subMenu = document.getElementById('programacaoSubMenu');
+      subMenu.style.display = subMenu.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function toggleSubMenuHarryPotter() {
+      const subMenu = document.getElementById('harryPotterSubMenu');
+      subMenu.style.display = subMenu.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
+</body>
+
+</html>
